@@ -1,6 +1,7 @@
-import Fs from 'fs';
+import Fs from 'fs-extra';
 import Path from 'path';
 
+import BashCenter from 'cli-color';
 /**
  * Module Loader.
  * @namespace moduleloader
@@ -16,12 +17,7 @@ let ModuleLoader = {
         es6Modules: Path.join(__dirname,'../','es6_modules')
     },
     
-    /**
-     * Prepare and run everything.
-     * @name initialize
-     * @function
-     */
-    initialize(){
+    execute(){
         this.packageFile = this.getPackage(this.paths.base, true);
         
         this.mentionedInPackageFile = this.getAllFromPackageFile(this.packageFile);
@@ -34,6 +30,19 @@ let ModuleLoader = {
         
         // Create the redirect file.
         this.createRedirectForPackages(this.esPackages);
+    },
+    
+    reverse(){
+        let _packages = this.getPackagesForReverse();
+        
+        // Remove all the redirect packages from node_modules.
+        this.removePackagesFromNodeModules(_packages);
+        
+        // Move all the packages back into node_modules.
+        this.movePackagesBack(_packages);
+        
+        // Remove the es6_modules directory.
+        this.removeEsModulesDirectory();
     },
     
     /**
@@ -197,8 +206,8 @@ let ModuleLoader = {
      * @return {String} The redirect index.js contents.
      */
     generateIndexFile(pkg, mainPath){
-        let _path = Path.join('../../../', pkg, mainPath);
-        let _file = "module.exports = require('"+_path+"');";//"import Module from '"+_path+"'; export default module;";
+        let _path = Path.join('../../', 'es6_modules', pkg, mainPath);
+        let _file = "module.exports = require('"+_path+"');";
         return _file;
     },
     
@@ -226,11 +235,64 @@ let ModuleLoader = {
             return {}; // No packages found in the package.json file.
         }
         return pkg.es6Dependencies;
+    },
+    
+    //***** REVERSE *****//
+    getPackagesForReverse(){
+        let _packages = this.getAllNodeModules();
+        
+        _packages = _packages.filter((_package) => {
+            let _path = Path.join(this.paths.nodeModules, _package);
+            let _pkg = this.getPackage(_path);
+            
+            if(!_pkg){
+                return false;
+            }
+            
+            if(_pkg.es6Replaced){
+                return true;
+            }
+            
+            return false;
+        });
+        return _packages;
+    },
+    
+    removePackagesFromNodeModules(packages){
+        packages.forEach((_package) => {
+            let _path = Path.join(this.paths.nodeModules, _package);
+            
+            if(!Fs.existsSync(_path)){
+                return;
+            }
+            
+            Fs.removeSync(_path);
+        });
+    },
+    
+    movePackagesBack(packages){
+        packages.forEach((_package) => {
+            let _currentPath = Path.join(this.paths.es6Modules, _package);
+            let _newPath = Path.join(this.paths.nodeModules, _package);
+
+            if(!Fs.existsSync(_currentPath)){
+                return;
+            }
+            
+            Fs.renameSync(_currentPath, _newPath);
+        });
+    },
+    
+    removeEsModulesDirectory(){
+        let _path = this.paths.es6Modules;
+        
+        if(!Fs.existsSync(_path)){
+            return;
+        }
+        
+        Fs.removeSync(_path);
     }
     
 };
-
-
-ModuleLoader.initialize();
 
 export default ModuleLoader;
