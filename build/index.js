@@ -16,7 +16,10 @@ var _path2 = require('path');
 
 var _path3 = _interopRequireDefault(_path2);
 
-// import BashCenter from 'cli-color';
+var _cliColor = require('cli-color');
+
+var _cliColor2 = _interopRequireDefault(_cliColor);
+
 /**
  * Module Loader.
  * @namespace moduleloader
@@ -32,6 +35,10 @@ var ModuleLoader = {
         es6Modules: _path3['default'].join(__dirname, '../', 'es6_modules')
     },
 
+    /**
+     * Perform some magic.
+     * @function
+     */
     execute: function execute() {
         this.packageFile = this.getPackage(this.paths.base, true);
 
@@ -47,6 +54,10 @@ var ModuleLoader = {
         this.createRedirectForPackages(this.esPackages);
     },
 
+    /**
+     * Reverse our magic.
+     * @function
+     */
     reverse: function reverse() {
         var _packages = this.getPackagesForReverse();
 
@@ -261,7 +272,10 @@ var ModuleLoader = {
         return pkg.es6Dependencies;
     },
 
-    //***** REVERSE *****//
+    /**
+     * Get all the packages that need to be reversed.
+     * @return {Array} All the packages that need to be reversed.
+     */
     getPackagesForReverse: function getPackagesForReverse() {
         var _this4 = this;
 
@@ -284,6 +298,10 @@ var ModuleLoader = {
         return _packages;
     },
 
+    /**
+     * Remove the redirect packages from node_modules.
+     * @param  {Array} packages - All the packages that need to be reversed.
+     */
     removePackagesFromNodeModules: function removePackagesFromNodeModules(packages) {
         var _this5 = this;
 
@@ -298,6 +316,10 @@ var ModuleLoader = {
         });
     },
 
+    /**
+     * Move all the packages back from es6_modules to node_modules.
+     * @param  {Array} packages - All the packages that need to be reversed.
+     */
     movePackagesBack: function movePackagesBack(packages) {
         var _this6 = this;
 
@@ -313,6 +335,10 @@ var ModuleLoader = {
         });
     },
 
+    /**
+     * Remove the es6_modules directory to keep thing nice and clean.
+     * @function
+     */
     removeEsModulesDirectory: function removeEsModulesDirectory() {
         var _path = this.paths.es6Modules;
 
@@ -322,7 +348,6 @@ var ModuleLoader = {
 
         _fsExtra2['default'].removeSync(_path);
     }
-
 };
 
 exports['default'] = ModuleLoader;
