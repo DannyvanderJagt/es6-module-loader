@@ -17,6 +17,10 @@ let ModuleLoader = {
         es6Modules: Path.join(__dirname,'../','es6_modules')
     },
     
+    /**
+     * Perform some magic.
+     * @function
+     */
     execute(){
         this.packageFile = this.getPackage(this.paths.base, true);
         
@@ -32,6 +36,10 @@ let ModuleLoader = {
         this.createRedirectForPackages(this.esPackages);
     },
     
+    /**
+     * Reverse our magic.
+     * @function
+     */
     reverse(){
         let _packages = this.getPackagesForReverse();
         
@@ -237,7 +245,10 @@ let ModuleLoader = {
         return pkg.es6Dependencies;
     },
     
-    //***** REVERSE *****//
+    /**
+     * Get all the packages that need to be reversed.
+     * @return {Array} All the packages that need to be reversed.
+     */
     getPackagesForReverse(){
         let _packages = this.getAllNodeModules();
         
@@ -258,6 +269,10 @@ let ModuleLoader = {
         return _packages;
     },
     
+    /**
+     * Remove the redirect packages from node_modules.
+     * @param  {Array} packages - All the packages that need to be reversed.
+     */
     removePackagesFromNodeModules(packages){
         packages.forEach((_package) => {
             let _path = Path.join(this.paths.nodeModules, _package);
@@ -270,6 +285,10 @@ let ModuleLoader = {
         });
     },
     
+    /**
+     * Move all the packages back from es6_modules to node_modules.
+     * @param  {Array} packages - All the packages that need to be reversed.
+     */
     movePackagesBack(packages){
         packages.forEach((_package) => {
             let _currentPath = Path.join(this.paths.es6Modules, _package);
@@ -283,6 +302,10 @@ let ModuleLoader = {
         });
     },
     
+    /**
+     * Remove the es6_modules directory to keep thing nice and clean.
+     * @function
+     */
     removeEsModulesDirectory(){
         let _path = this.paths.es6Modules;
         
@@ -292,7 +315,6 @@ let ModuleLoader = {
         
         Fs.removeSync(_path);
     }
-    
 };
 
 export default ModuleLoader;
