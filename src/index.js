@@ -1,7 +1,6 @@
 import Fs from 'fs-extra';
 import Path from 'path';
 
-import BashCenter from 'cli-color';
 /**
  * Module Loader.
  * @namespace moduleloader

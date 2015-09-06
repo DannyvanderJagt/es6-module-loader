@@ -16,10 +16,6 @@ var _path2 = require('path');
 
 var _path3 = _interopRequireDefault(_path2);
 
-var _cliColor = require('cli-color');
-
-var _cliColor2 = _interopRequireDefault(_cliColor);
-
 /**
  * Module Loader.
  * @namespace moduleloader
