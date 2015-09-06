@@ -11,5 +11,9 @@ program
 if(program.reverse){
     ModuleLoader.reverse();
 }else{
-    ModuleLoader.execute();
+    var result = ModuleLoader.execute();
+    
+    if(result == false){
+        console.log("[%s] - The package.json file can't be found or it is not written in valid JSON!", pkg.name);
+    }
 }
