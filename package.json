@@ -9,6 +9,7 @@
   },
   "author": "Danny van der Jagt <dannyvanderjagt@gmail.com>",
   "license": "MIT",
+  "preferGlobal": true,
   "devDependencies": {
     "babel": "^5.8.23"
   }
