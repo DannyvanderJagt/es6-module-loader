@@ -10,10 +10,10 @@ let ModuleLoader = {
      * @var {Object} paths - The base paths.
      */
     paths:{
-        base: Path.join(__dirname, '../'),
-        packageFile: Path.join(__dirname,'../','package.json'),
-        nodeModules: Path.join(__dirname,'../','node_modules'),
-        es6Modules: Path.join(__dirname,'../','es6_modules')
+        base: Path.join(process.env.PWD),
+        packageFile: Path.join(process.env.PWD,'package.json'),
+        nodeModules: Path.join(process.env.PWD,'node_modules'),
+        es6Modules: Path.join(process.env.PWD,'es6_modules')
     },
     
     /**
@@ -21,7 +21,12 @@ let ModuleLoader = {
      * @function
      */
     execute(){
+        // Get the package.json.
         this.packageFile = this.getPackage(this.paths.base, true);
+        
+        if(this.packageFile === false){
+            return false;
+        }
         
         this.mentionedInPackageFile = this.getAllFromPackageFile(this.packageFile);
         
@@ -67,9 +72,6 @@ let ModuleLoader = {
         try{
             file = Fs.readFileSync(path, 'utf-8');
         }catch(error){
-            if(throwError){
-                throw new Error("es2015: We can't find the package.json file!");
-            }
             return false;
         }
         
@@ -77,9 +79,6 @@ let ModuleLoader = {
         try{
             json = JSON.parse(file);
         }catch(error){
-            if(throwError){
-                throw new Error("es2015: Your package.json file is not valid json!");
-            }
             return false;
         }
         
