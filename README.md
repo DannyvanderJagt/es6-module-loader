@@ -1,4 +1,4 @@
-# Es6 module loader.
+# Import ES6 Modules
 Import and use es6/es2015 modules directly without the need to pre-compile them.
 
 **Previously:**
