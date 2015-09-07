@@ -56,6 +56,15 @@ Or add the `es6` command to your `package.json` like this:
 ## Reverse
 You can to reverse everything by using: `es6 -r` or `es6 --reverse`
 
+## Build in support
+If you have an npm module and want to support this can you do this by adding this to you `package.json` file.
+
+```json
+{
+    "es6":"path/to/your/main/es6/file.js"
+}
+```
+
 ## How does this work?
 You can already use non compiled es6 modules with babel but they can not be installed in `node_modules`. Somehow babel will not compile the packages in this directory. This module will move the es6 packages from `node_modules` to `es6 modules` and create a redirect package in `node_modules`.
 
