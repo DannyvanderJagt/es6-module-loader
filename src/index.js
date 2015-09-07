@@ -33,6 +33,11 @@ let ModuleLoader = {
         // Collect all the names of es6 packages.
         this.esPackages = this.getAllPackages(this.mentionedInPackageFile);
         
+        // Only proceed when there is something to do.
+        if(esPackages.length === 0){
+            return;
+        }
+        
         // Move all the packages into es6_modules.
         this.movePackages(this.esPackages);
         
