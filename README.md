@@ -3,18 +3,18 @@ Import and use es6/es2015 modules directly without the need to pre-compile them.
 
 **Previously:**
 ```js
-import myES6Package from 'my-es6-package';
+import myES6Package from 'my-es6-module';
 /* 
  * ---------------- ERROR: ----------------
  * This will throw an error because babel 
- * will not compile npm packages.
+ * will not compile npm modules.
  * ----------------------------------------
 */
 ```
 
 **With this package:**
 ```js
-import myES6Package from 'my-es6-package';
+import myES6Package from 'my-es6-module';
 
 // Start using the package with es6 code!
 ```

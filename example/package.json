@@ -1,0 +1,8 @@
+{
+    "name":"example",
+    "version":"1.0.0",
+    "main":"index.js",
+    "es6Dependencies":{
+        "my-es6-module": "index.js"
+    }
+}
