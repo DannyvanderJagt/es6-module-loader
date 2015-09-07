@@ -1,6 +1,6 @@
 {
-  "name": "es6-module-loader",
-  "version": "0.0.2",
+  "name": "import-es6-modules",
+  "version": "0.1.0",
   "description": "",
   "main": "build/index.js",
   "bin":{
@@ -19,8 +19,5 @@
   "dependencies": {
     "commander": "^2.8.1",
     "fs-extra": "^0.24.0"
-  },
-  "es6Dependencies":{
-    "fs-extra": "index.js"
   }
 }
