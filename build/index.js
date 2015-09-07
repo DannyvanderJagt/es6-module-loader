@@ -49,7 +49,7 @@ var ModuleLoader = {
         this.esPackages = this.getAllPackages(this.mentionedInPackageFile);
 
         // Only proceed when there is something to do.
-        if (esPackages.length === 0) {
+        if (this.esPackages.length === 0) {
             return;
         }
 
