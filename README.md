@@ -35,10 +35,12 @@ Example:
 {
     "name": "your-module",
     "es6Dependencies":{
-        "the-npm-package":"main.js"
+        "the-npm-package":"main.js",
+        "other-package": true
     }
 }
 ```
+> Note: When you use true: when available the es6 path from the package will be used otherwise the main path will be used.
 
 When you are done modifing your `package.json` you can choose between the next two executing methods.
 
@@ -64,6 +66,16 @@ If you have an npm module and want to support this can you do this by adding thi
     "es6":"path/to/your/main/es6/file.js"
 }
 ```
+
+or 
+
+```json
+{
+    "main":"src/index.js",
+    "es6":true
+}
+```
+> Note: When you use true the main path will be used to load your module in es6 mode.
 
 ## How does this work?
 You can already use non compiled es6 modules with babel but they can not be installed in `node_modules`. Somehow babel will not compile the packages in this directory. This module will move the es6 packages from `node_modules` to `es6 modules` and create a redirect package in `node_modules`.
