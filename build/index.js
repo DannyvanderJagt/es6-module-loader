@@ -169,11 +169,23 @@ var ModuleLoader = {
         var _mainPath = false;
 
         if (_pkg.es6) {
-            _mainPath = _pkg.es6;
+            if (_pkg.es6 !== true) {
+                _mainPath = _pkg.es6;
+            } else {
+                _mainPath = _pkg.main;
+            }
         }
 
         if (this.mentionedInPackageFile[module]) {
-            _mainPath = this.mentionedInPackageFile[module];
+            if (this.mentionedInPackageFile[module] === true) {
+                if (_pkg.es6 !== true) {
+                    _mainPath = _pkg.es6;
+                } else {
+                    _mainPath = _pkg.main;
+                }
+            } else {
+                _mainPath = this.mentionedInPackageFile[module];
+            }
         }
 
         if (_mainPath === false) {
