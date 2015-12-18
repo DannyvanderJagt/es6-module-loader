@@ -21,7 +21,6 @@ import myES6Package from 'my-es6-module';
 
 ## Install
 This module should be installed globally!   
-`npm install es6-module-loader -g`
 
 > Note: This module is only tested with babel as precompiler! However other precompilers should work just fine.
 
