@@ -1,3 +1,8 @@
+# DEPRECATED
+*ES2015 modules should be compiled into ES5 before they are used.*
+
+--
+
 # Import ES6 Modules
 Import and use es6/es2015 modules directly without the need to pre-compile them.
 
